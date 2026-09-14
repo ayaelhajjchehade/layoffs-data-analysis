@@ -1,6 +1,6 @@
 # Global Layoffs Analysis
 
-This is a data analytics project analyzing global tech layoffs from 2024 to 2026, built as a standalone Power BI project.
+This is a data analytics project analyzing global tech layoffs from 2020 to 2026, built as a standalone Power BI project.
 
 The project is intentionally built end-to-end inside Power BI, using Power Query for cleaning and Power BI's data model and DAX for analysis, to demonstrate independent proficiency in the tool without relying on a separate SQL or Python cleaning stage.
 
@@ -11,14 +11,16 @@ The purpose of the project is to understand which companies, industries, and reg
 ![Global Layoffs Dashboard](images/layoffs-analysis-dashboard.png)
 
 ## Project Structure
+
+```
 layoffs-data-analysis/
 ├── data/
-│ └── layoffs.csv
+│   └── layoffs.csv
 ├── images/
-│ └── layoffs-analysis-dashboard.png
+│   └── layoffs-analysis-dashboard.png
 ├── layoffs_dashboard.pbix
 └── README.md
-
+```
 
 The dataset is sourced from Kaggle's "Layoffs Dataset" (originally compiled from Layoffs.fyi), tracking startup and tech company layoffs since 2020, and is included in this repository.
 
@@ -31,10 +33,12 @@ The raw dataset contains 999+ rows of company layoff events. Cleaning was done e
 - Setting correct data types (whole number, decimal, percentage, and date fields)
 - Splitting the `location` column into city and a US/Non-US region flag
 - Rebuilding the region flag from `country` (using a conditional column) instead of parsed text, to avoid inconsistencies in the original formatting
-- Standardizing inconsistent company name casing (e.g. "Tiktok" vs "TikTok", "LOOP" vs "Loop") using a grouped, lowercase comparison to catch every case-mismatch pair
+- Standardizing inconsistent company name casing (e.g. "Tiktok" vs "TikTok", "LOOP" vs "Loop", "MARA" vs "Mara") using a grouped, lowercase comparison to catch every case-mismatch pair
 - Trimming whitespace from text fields
 - Adding a `source_type` column to flag whether a record's source was a URL or an internal memo
 - Removing exact duplicate rows
+
+"TikTok" and "TikTok India" were kept as distinct entries rather than merged, since TikTok's India operations were shut down entirely in 2020 — a separate event from other TikTok layoffs elsewhere.
 
 ### 2. Power BI - Data Model and Measures
 
@@ -74,6 +78,15 @@ The dashboard includes:
 - Amazon, Intel, and Meta recorded the highest layoff totals among individual companies.
 - Layoff activity was volatile rather than steady, with sharp peaks and drops across the year rather than a consistent trend.
 
+## Data Quality Notes
+
+This dataset reflects publicly reported tech and startup layoffs (sourced from Layoffs.fyi via Kaggle), not a complete record of all layoffs globally. Conclusions drawn from it describe reported layoffs in this dataset, not layoffs as a whole.
+
+- The dataset spans **March 2020 to September 2026**.
+- **~34.7% of records are missing `total_laid_off`**, and **~37.3% are missing `percentage_laid_off`**. These are treated as unknown, not zero, and are excluded from sum/average calculations rather than imputed.
+- **2026 is a partial year** (year-to-date through September). Layoff totals for 2026 should be read as YTD figures, not compared directly against complete prior years.
+- A small number of records have a `date_added` earlier than the reported layoff `date`. These were kept as-is; they may reflect legitimate data corrections upstream rather than errors, but no assumption was made about which is correct.
+
 ## How to Run the Project
 
 ### 1. Download the Dataset
@@ -88,10 +101,9 @@ Open `layoffs_dashboard.pbix` in Power BI Desktop. All cleaning steps and measur
 
 ## Limitations
 
-- `total_laid_off` and `percentage_laid_off` are often reported inconsistently; many events report only one or neither, so KPIs built on these fields reflect reported layoffs, not full headcount across every event.
-- `Region` and `country` are based on company headquarters, not the specific office location affected.
+- This dataset only reflects publicly reported layoffs and does not capture every layoff event that occurred in this period.
+- `Region` and `country` are based on company headquarters, not the specific office location affected by a given layoff.
 - The Avg. Layoff % per Event measure averages reported percentages across events; it does not represent the percentage of total employees laid off across the whole dataset.
-- The dataset relies on public reporting and may not capture every layoff event that occurred in this period.
 
 ## Tools Used
 
