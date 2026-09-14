@@ -15,7 +15,7 @@ layoffs-data-analysis/
 ├── data/
 │ └── layoffs.csv
 ├── images/
-│ └── dashboard_screenshot.png
+│ └── layoffs-analysis-dashboard.png
 ├── layoffs_dashboard.pbix
 └── README.md
 
