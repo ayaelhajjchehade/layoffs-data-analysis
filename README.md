@@ -1,6 +1,6 @@
 # Global Layoffs Analysis
 
-This is a data analytics project analyzing global tech layoffs from 2020 to 2026, built as a standalone Power BI project.
+**Business question:** Which companies, industries, and regions were hit hardest by the 2020–2026 tech layoff wave, and is the trend accelerating or stabilizing? This is a data analytics project analyzing global tech layoffs from 2020 to 2026, built as a standalone Power BI project.
 
 The project is intentionally built end-to-end inside Power BI, using Power Query for cleaning and Power BI's data model and DAX for analysis, to demonstrate independent proficiency in the tool without relying on a separate SQL or Python cleaning stage.
 
